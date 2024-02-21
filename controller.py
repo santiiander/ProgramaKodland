@@ -9,29 +9,38 @@ class Controlador:
         self.listaResumenMes=[]
         self.listaClasesNuevas = []
         self.gananciaMensual = 0
-
-
+    
     def cargarListaClases(self):
         try:
-            with open("clases.txt","r",encoding="UTF-8") as file:
-                for lineas in file.readlines():
-                    linea = lineas.strip().split(",")
-                    self.Clase=Clase(linea[0],linea[1],linea[2],linea[3],linea[4],linea[5])
-                    self.listaClases.append(self.Clase)
+            self.gananciaMensual = 0
+            if not self.listaClases:  # Verifica si la lista está vacía
+                with open("clases.txt", "r", encoding="UTF-8") as file:
+                    for lineas in file.readlines():
+                        linea = lineas.strip().split(",")
+                        self.Clase = Clase(linea[0], linea[1], linea[2], linea[3], linea[4], linea[5])
+                        self.listaClases.append(self.Clase)
         except FileNotFoundError:
-            self.view.FileNotFound()  
+            self.view.FileNotFound()
+
+
+
+
+
 
     def resumenMes(self):
         actual = self.view.pedirMes()
+        self.gananciaMensual = 0
         for clase in self.listaClases:
             mes = clase.getFecha()
             pago = clase.getPago()
             fecha = mes.strip().split("-")
             mesfinal = fecha[1]
             if mesfinal == actual:
-                self.gananciaMensual = 0
-                self.gananciaMensual += float(pago)
+                self.gananciaMensual += float(pago)    
         self.view.gananciaMes(actual, self.gananciaMensual)
+
+    def reiniciar(self):
+        self.gananciaMensual = 0
 
 
     def mostrarClases(self):
@@ -39,7 +48,6 @@ class Controlador:
             self.view.showClases(clase)
 
     def cargarClase(self):
-
         grupo = self.view.pedirGrupo()
         fecha = self.view.pedirFecha()
         pago = self.view.pedirPago()
@@ -67,19 +75,18 @@ class Controlador:
     def ejecutarSistema(self):
         while True:
             chose = self.view.menu()
-            self.gananciaMensual = 0
+            self.reiniciar()
             if chose == "1":
+                self.reiniciar()
                 self.cargarClase()
                 self.subirDatos()
-            if chose == "2":
+            elif chose == "2":
+                self.reiniciar()
                 self.cargarListaClases()
                 self.mostrarClases()
-            if chose == "3":
-                self.gananciaMensual = 0
+            elif chose == "3":
+                self.reiniciar()
                 self.cargarListaClases()
                 self.resumenMes()
-            if chose == "4":
-                break    
-
-
-                    
+            elif chose == "4":
+                break  # Salir del bucle y terminar el programa
