@@ -2,6 +2,7 @@ from model.clase import Clase
 from model.pago import Pago
 from view.view import view
 import datetime
+import os
 #Dato
 
 class Controlador:
@@ -122,10 +123,23 @@ class Controlador:
 
     def registrarPago(self):
         año_actual = datetime.datetime.now().year
-        with open(f"Registro de Pagos año {año_actual}.txt","a+") as file:
+        filename = f"Registro de Pagos año {año_actual}.txt"
+        
+        if not os.path.exists(filename):
+            with open(filename, "w+") as file:
+                file.write("Certificación de Veracidad:\n\n")
+                file.write(f"\nConfirmo que fui yo, {self.nombreUsuario}, quien recibió el pago.")
+        
+        with open(filename, "a+") as file:
+            file.write(f"Por la presente, certifico la veracidad del pago realizado conforme se detalla a continuación:\n\n")
+            
             for pago in self.pagosvector:
-                file.write(str(pago.getFecha())+ " , " +str(pago.getMonto())+ " , "+str(pago.getPlataforma())+ " , "+(pago.getComentario()))
-                file.write(f"\nPor la presente, certifico la veracidad del pago realizado conforme se detalla arriba\nConfirmo que fui yo {self.nombreUsuario} en la fecha de {pago.getFecha()} ")
+                file.write(f"Fecha: {pago.getFecha()}, Monto: {pago.getMonto()}, Plataforma: {pago.getPlataforma()}, Comentario: {pago.getComentario()}\n")
+            
+            
+
+
+
 
     def ejecutarSistema(self):
         self.nombreUsuario = self.view.pedirNombre()
