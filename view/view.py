@@ -11,7 +11,8 @@ class view:
         print("3) Generar resumen de cierto mes 🗓️")
         print("4) Generar constancia de cobro 💰")
         print("5) Eliminar clase del registro 🗑️")
-        print("6) Salir 🚪")
+        print("6) Registrar pago recibio 💸")
+        print("7) Salir 🚪")
         return input("Seleccione una opción (1, 2, 3, 4, 5 o 6):\n-> ")
 
 
@@ -67,3 +68,18 @@ class view:
     
     def eliminada(self):
         print("Clase eliminada exitosamente si existia.\n")
+
+
+    # Prints del modelo Pago
+
+    def fechaPago(self):
+        return input("Ingrese la fecha del efecto de pago dd/mm/aaaa: ")
+
+    def montoPago(self):
+        return input("Ingrese el monto cobrado: ")    
+    
+    def plataformaPago(self):
+        return input("Ingrese la plataforma en la cual fue acreditada el pago: ")
+    
+    def comentarioPago(self):
+        return input("Puede ingresar un comentario sobre la experiencia de cobro: ")

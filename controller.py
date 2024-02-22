@@ -1,16 +1,20 @@
 from model.clase import Clase
+from model.pago import Pago
 from view.view import view
+import datetime
 
 class Controlador:
     def __init__(self):
         self.view = view()
         self.Clase=Clase(grupo="",fecha="",pago="",duracion="",tipo="",leccion="",modulo="")
+        self.Pago=Pago(fecha="",monto="",plataforma="",comentario="")
         self.listaClases=[]
         self.listaResumenMes=[]
         self.listaClasesNuevas = []
         self.gananciaMensual = 0
         self.nombreUsuario = ""
         self.espacios= " "*30
+        self.pagosvector = []
     
     def cargarListaClases(self):
         try:
@@ -36,8 +40,6 @@ class Controlador:
                     # Si la fecha y el grupo coinciden, no escribimos la línea de nuevo
                     continue
                 file.write(linea)
-        
-
 
     def resumenMes(self):
         actual = self.view.pedirMes()
@@ -50,6 +52,19 @@ class Controlador:
             if mesfinal == actual:
                 self.gananciaMensual += float(pago)    
         self.view.gananciaMes(actual, self.gananciaMensual)
+
+    def resumenMesExportar(self,meselegido):
+        actual = meselegido
+        self.gananciaMensual = 0
+        for clase in self.listaClases:
+            mes = clase.getFecha()
+            pago = clase.getPago()
+            fecha = mes.strip().split("-")
+            mesfinal = fecha[1]
+            if mesfinal == actual:
+                self.gananciaMensual += float(pago)    
+        return self.gananciaMensual        
+
 
     def reiniciar(self):
         self.gananciaMensual = 0
@@ -67,15 +82,7 @@ class Controlador:
         tipo = self.view.pedirTipo()
         leccion = self.view.pedirLeccion()
         modulo = self.view.pedirModulo()
-
         clase = Clase(grupo, fecha, pago, duracion, tipo, leccion, modulo)
-        self.Clase.setGrupo(grupo)
-        self.Clase.setFecha(fecha)
-        self.Clase.setPago(pago)
-        self.Clase.setDuracion(duracion)
-        self.Clase.setTipo(tipo)
-        self.Clase.setLeccion(leccion)
-        self.Clase.setModulo(modulo)
         self.listaClasesNuevas.append(clase)
 
     def subirDatos(self):
@@ -99,9 +106,30 @@ class Controlador:
                     if mesfinal==fecha:
                             #claseWrite = Clase(clase[0],clase[1],clase[2],clase[3],clase[4],clase[5])
                             file.write(" "*35+str(clase.getGrupo()) + "," + str(clase.getFecha()) + "," + str(clase.getPago()) + "," + str(clase.getDuracion()) + "," + str(clase.getTipo()) + "," + str(clase.getLeccion()) + "," + str(clase.getModulo()) + "\n")
+                dato=self.resumenMesExportar(fecha)      
+                file.write(f"\n{self.espacios+" "*5}La ganancia del mes:{mesfinal} es de: {dato}")      
         except FileNotFoundError:
                 self.view.FileNotFound()
-                     
+
+    def crearPago(self):
+        fecha = self.view.fechaPago()
+        monto = self.view.montoPago()
+        plataforma = self.view.plataformaPago()
+        comentario = self.view.comentarioPago()
+        pago= Pago(fecha,monto,plataforma,comentario)
+        self.pagosvector.append(pago)
+
+    def registrarPago(self):
+        año_actual = datetime.datetime.now().year
+        with open(f"Registro de Pagos año {año_actual}.txt","a+") as file:
+            for pago in self.pagosvector:
+                file.write(str(pago.getFecha())+ " , " +str(pago.getMonto())+ " , "+str(pago.getPlataforma())+ " , "+(pago.getComentario()))
+                file.write(f"\nPor la presente, certifico la veracidad del pago realizado conforme se detalla arriba\nConfirmo que fui yo {self.nombreUsuario} en la fecha de {pago.getFecha()} ")
+
+
+
+
+
     def ejecutarSistema(self):
         self.nombreUsuario = self.view.pedirNombre()
         while True:
@@ -130,4 +158,8 @@ class Controlador:
                 self.view.eliminada()
                 break
             elif chose == "6":
+                self.crearPago()
+                self.registrarPago()
+                break
+            elif chose == "7":
                 break
