@@ -4,8 +4,10 @@ Este programa te va a ayudar a llevar en orden tus clases, el registro de las mi
 V1.1
 Se agregaron las siguiente funcionalidades:
 
-* Se puede generar un resumen y ver la ganancia del mes seleccionado
+* Se puede generar un resumen y ver la ganancia del mes seleccionado.
 
-* Se puede generar un resumen en otro archivo con lo del mes
+* Se puede generar un resumen en otro archivo con lo del mes.
 
-* Se pueden eliiminar las clases del archivo
+* Se pueden eliiminar las clases del archivo.
+
+* Se puede crear un registro del pago.

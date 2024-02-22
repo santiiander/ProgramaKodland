@@ -21,4 +21,5 @@ class Pago:
     def setPlataforma(self,plataforma):
         self.plataforma=plataforma
     def setComentario(self,comentario):
-        self.comentario=comentario            
+        self.comentario=comentario     
+#Pago       

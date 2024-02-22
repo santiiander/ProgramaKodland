@@ -1,5 +1,5 @@
 #from model.clase import Clase
-
+#Dato
 class view:
     def __init__(self):
         pass

@@ -2,6 +2,7 @@ from model.clase import Clase
 from model.pago import Pago
 from view.view import view
 import datetime
+#Dato
 
 class Controlador:
     def __init__(self):
@@ -125,10 +126,6 @@ class Controlador:
             for pago in self.pagosvector:
                 file.write(str(pago.getFecha())+ " , " +str(pago.getMonto())+ " , "+str(pago.getPlataforma())+ " , "+(pago.getComentario()))
                 file.write(f"\nPor la presente, certifico la veracidad del pago realizado conforme se detalla arriba\nConfirmo que fui yo {self.nombreUsuario} en la fecha de {pago.getFecha()} ")
-
-
-
-
 
     def ejecutarSistema(self):
         self.nombreUsuario = self.view.pedirNombre()
