@@ -128,5 +128,6 @@ class Controlador:
                 self.cargarListaClases()
                 self.eliminarDelRegistro()
                 self.view.eliminada()
+                break
             elif chose == "6":
                 break
