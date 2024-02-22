@@ -128,7 +128,7 @@ class Controlador:
         if not os.path.exists(filename):
             with open(filename, "w+") as file:
                 file.write("Certificación de Veracidad:\n\n")
-                file.write(f"\nConfirmo que fui yo, {self.nombreUsuario}, quien recibió el pago.")
+                file.write(f"\nConfirmo que fui yo, {self.nombreUsuario}, quien recibió el pago.\n")
         
         with open(filename, "a+") as file:
             file.write(f"Por la presente, certifico la veracidad del pago realizado conforme se detalla a continuación:\n\n")
