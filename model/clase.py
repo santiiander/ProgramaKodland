@@ -1,9 +1,10 @@
 class Clase:
-    def __init__(self,grupo,fecha,pago,duracion,leccion,modulo):
+    def __init__(self,grupo,fecha,pago,duracion,tipo,leccion,modulo):
         self.grupo = grupo
         self.fecha = fecha
         self.pago = pago
         self.duracion = duracion
+        self.tipo = tipo
         self.leccion = leccion
         self.modulo = modulo
 
@@ -20,6 +21,9 @@ class Clase:
 
     def setDuracion(self,duracion):
         self.duracion = duracion     
+
+    def setTipo(self,tipo):
+        self.tipo = tipo    
 
     def setLeccion(self,leccion):
         self.leccion=leccion
@@ -40,6 +44,9 @@ class Clase:
 
     def getDuracion(self):
         return self.duracion
+    
+    def getTipo(self):
+        return self.tipo
     
     def getLeccion(self):
         return self.leccion
