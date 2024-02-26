@@ -87,13 +87,13 @@ class Controlador:
         clase = Clase(grupo, fecha, pago, duracion, tipo, leccion, modulo)
         self.listaClasesNuevas.append(clase)
 
+
     def subirDatos(self):
-        #import datetime
-        with open("clases.txt", "a+") as file:
+        with open("clases.txt", "w") as file:  # Abre el archivo en modo escritura para limpiar su contenido
             for clase in self.listaClasesNuevas:
                 file.write(str(clase.getGrupo()) + "," + str(clase.getFecha()) + "," + str(clase.getPago()) + "," + str(clase.getDuracion()) + "," + str(clase.getTipo())+ "," + str(clase.getLeccion()) + "," + str(clase.getModulo()) + "\n")
-                #file.write("Clase: "+str(clase.getGrupo()) + "," +"Fecha: "+ str(clase.getFecha()) + "," +"Pago: "+ str(clase.getPago()) + "," +"Duracion: "+ str(clase.getDuracion()) + "\n")
         self.view.mostrarInfoClase(clase)
+
 
     def genResuemnArchivo(self):
         nombre = self.nombreUsuario
@@ -136,10 +136,6 @@ class Controlador:
             for pago in self.pagosvector:
                 file.write(f"Fecha: {pago.getFecha()}, Monto: {pago.getMonto()}, Plataforma: {pago.getPlataforma()}, Comentario: {pago.getComentario()}\n")
             
-            
-
-
-
 
     def ejecutarSistema(self):
         self.nombreUsuario = self.view.pedirNombre()

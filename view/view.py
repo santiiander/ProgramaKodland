@@ -13,7 +13,7 @@ class view:
         print("5) Eliminar clase del registro 🗑️")
         print("6) Registrar pago recibio 💸")
         print("7) Salir 🚪")
-        return input("Seleccione una opción (1, 2, 3, 4, 5 o 6):\n-> ")
+        return input("Seleccione una opción (1, 2, 3, 4, 5, 6 o 7):\n-> ")
 
 
     def FileNotFound(self):
