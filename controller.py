@@ -96,6 +96,8 @@ class Controlador:
         self.view.mostrarInfoClase(clase)
 
 
+
+
     def genResuemnArchivo(self):
         nombre = self.nombreUsuario
         fecha = self.view.pedirMes()
@@ -130,10 +132,9 @@ class Controlador:
             with open(filename, "w+") as file:
                 file.write("Certificación de Veracidad:\n\n")
                 file.write(f"\nConfirmo que fui yo, {self.nombreUsuario}, quien recibió el pago.\n")
+                file.write(f"Por la presente, certifico la veracidad del pago realizado conforme se detalla a continuación:\n")
         
         with open(filename, "a+") as file:
-            file.write(f"Por la presente, certifico la veracidad del pago realizado conforme se detalla a continuación:\n\n")
-            
             for pago in self.pagosvector:
                 file.write(f"Fecha: {pago.getFecha()}, Monto: {pago.getMonto()}, Plataforma: {pago.getPlataforma()}, Comentario: {pago.getComentario()}\n")
             
