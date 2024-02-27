@@ -89,9 +89,10 @@ class Controlador:
 
 
     def subirDatos(self):
-        with open("clases.txt", "w") as file:  # Abre el archivo en modo escritura para limpiar su contenido
+        with open("clases.txt", "a+") as file:
             for clase in self.listaClasesNuevas:
                 file.write(str(clase.getGrupo()) + "," + str(clase.getFecha()) + "," + str(clase.getPago()) + "," + str(clase.getDuracion()) + "," + str(clase.getTipo())+ "," + str(clase.getLeccion()) + "," + str(clase.getModulo()) + "\n")
+            self.listaClasesNuevas = [] 
         self.view.mostrarInfoClase(clase)
 
 
